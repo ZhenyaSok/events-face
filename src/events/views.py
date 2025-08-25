@@ -32,6 +32,7 @@ from .pagination import EventCursorPagination
 
 class EventViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EventSerializer
+    permission_classes = [permissions.IsAuthenticated]  # защита JWT
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_fields = ["name"]      # фильтрация по названию
     search_fields = ["name"]         # поиск по названию
@@ -40,6 +41,10 @@ class EventViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = EventCursorPagination  # подключаем курсорную пагинацию
 
     def get_queryset(self):
+        """
+        Возвращаем только мероприятия со статусом OPEN.
+        Используем select_related для площадки, чтобы избежать N+1.
+        """
         return (
             Event.objects
             .filter(status=Event.Status.OPEN)
