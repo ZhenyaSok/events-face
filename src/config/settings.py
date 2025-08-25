@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # my_apps
     "events",
     "authentication",
+    "sync",
 ]
 
 INSTALLED_APPS += [

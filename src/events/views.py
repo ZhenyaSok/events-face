@@ -32,7 +32,7 @@ from .pagination import EventCursorPagination
 
 class EventViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EventSerializer
-    permission_classes = [permissions.IsAuthenticated]  # защита JWT
+    # permission_classes = [permissions.IsAuthenticated]  # TODO защита JWT
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_fields = ["name"]      # фильтрация по названию
     search_fields = ["name"]         # поиск по названию
