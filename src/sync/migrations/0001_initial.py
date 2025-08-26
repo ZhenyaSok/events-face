@@ -5,25 +5,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='SyncLog',
+            name="SyncLog",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sync_date', models.DateField(default=django.utils.timezone.now)),
-                ('new_events_count', models.PositiveIntegerField(default=0)),
-                ('updated_events_count', models.PositiveIntegerField(default=0)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("sync_date", models.DateField(default=django.utils.timezone.now)),
+                ("new_events_count", models.PositiveIntegerField(default=0)),
+                ("updated_events_count", models.PositiveIntegerField(default=0)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name': 'Лог синхронизации',
-                'verbose_name_plural': 'Логи синхронизации',
+                "verbose_name": "Лог синхронизации",
+                "verbose_name_plural": "Логи синхронизации",
             },
         ),
     ]

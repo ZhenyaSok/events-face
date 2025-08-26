@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Event
+
+from .models import Event, Registration
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -8,3 +9,10 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ["id", "name", "date", "status", "venue", "venue_name"]
+
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Registration
+        fields = ("id", "event", "status", "created_at", "updated_at")
+        read_only_fields = ("status",)

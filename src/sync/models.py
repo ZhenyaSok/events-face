@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
+
 class SyncLog(models.Model):
     """
     Лог синхронизации с events-provider
     """
+
     sync_date = models.DateField(default=timezone.now)
     new_events_count = models.PositiveIntegerField(default=0)
     updated_events_count = models.PositiveIntegerField(default=0)

@@ -1,25 +1,26 @@
-import requests
 from datetime import date, timedelta
+
+import requests
 from django.core.management.base import BaseCommand
-from events.models import Event, Venue
-from sync.models import SyncLog
 from django.utils.dateparse import parse_datetime
 
+from events.models import Event, Venue
+from sync.models import SyncLog
+
 API_URL = "https://events.k3scluster.tech/api/events/"
+
 
 class Command(BaseCommand):
     help = "Синхронизация мероприятий с events-provider"
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--date",
-            type=str,
-            help="Дата для синхронизации в формате YYYY-MM-DD"
+            "--date", type=str, help="Дата для синхронизации в формате YYYY-MM-DD"
         )
         parser.add_argument(
             "--all",
             action="store_true",
-            help="Синхронизировать абсолютно все мероприятия"
+            help="Синхронизировать абсолютно все мероприятия",
         )
 
     def handle(self, *args, **options):
@@ -52,15 +53,14 @@ class Command(BaseCommand):
             else:
                 venue = None
 
-            # Ивент
             event_obj, created = Event.objects.update_or_create(
                 id=item["id"],  # предполагается, что id совпадает
                 defaults={
                     "name": item["name"],
                     "date": parse_datetime(item["date"]),
                     "status": item.get("status", "open"),
-                    "venue": venue
-                }
+                    "venue": venue,
+                },
             )
             if created:
                 new_count += 1
@@ -71,9 +71,11 @@ class Command(BaseCommand):
         SyncLog.objects.create(
             sync_date=sync_date,
             new_events_count=new_count,
-            updated_events_count=updated_count
+            updated_events_count=updated_count,
         )
 
-        self.stdout.write(self.style.SUCCESS(
-            f"Synchronization finished. New: {new_count}, Updated: {updated_count}"
-        ))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Synchronization finished. New: {new_count}, Updated: {updated_count}"
+            )
+        )
