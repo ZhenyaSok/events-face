@@ -20,7 +20,7 @@ uv pip install -e .
 ---
 
 ### Структура проекта
-
+```
 events-face/
 ├─ src/
 │   ├─ config/               # Django проект (settings, asgi, wsgi)
@@ -33,7 +33,7 @@ events-face/
 │   └─ urls.py               # Эндпоинты
 ├─ .venv/                    # Виртуальная среда
 └─ README.md
-
+```
 
 ---
 
