@@ -9,7 +9,7 @@ from .serializers import EventSerializer, RegistrationSerializer
 
 class EventViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EventSerializer
-    # permission_classes = [permissions.IsAuthenticated]  # TODO защита JWT
+    permission_classes = [permissions.IsAuthenticated]  # TODO защита JWT
     filter_backends = [
         DjangoFilterBackend,
         filters.OrderingFilter,
