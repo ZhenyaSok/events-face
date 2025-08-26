@@ -20,18 +20,20 @@ uv pip install -e .
 ---
 
 ### Структура проекта
+
 events-face/
 ├─ src/
-│ ├─ config/ # Django проект (settings, asgi, wsgi)
-│ │ └─ settings.py
-│ │
-│ ├─ events/ # Приложение мероприятий
-│ ├─ authentication/ # JWT аутентификация
-│ ├─ sync/ # Синхронизация с events-provider
-│ ├─ manage.py
-│ └─ urls.py # Эндпоинты
-├─ .venv/ # Виртуальная среда
+│   ├─ config/               # Django проект (settings, asgi, wsgi)
+│   │   └─ settings.py
+│   │
+│   ├─ events/               # Приложение мероприятий
+│   ├─ authentication/       # JWT аутентификация
+│   ├─ sync/                 # Синхронизация с events-provider
+│   ├─ manage.py
+│   └─ urls.py               # Эндпоинты
+├─ .venv/                    # Виртуальная среда
 └─ README.md
+
 
 ---
 
