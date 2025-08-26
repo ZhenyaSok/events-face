@@ -72,3 +72,10 @@ class Registration(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Регистрация на мероприятие"
+        verbose_name_plural = "Регистрации на мероприятия"
+
+    def __str__(self):
+        return f"{self.event} - ({self.status})"
