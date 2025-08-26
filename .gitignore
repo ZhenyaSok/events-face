@@ -426,6 +426,6 @@ cython_debug/
 .env.prod
 test.py
 local_tests/
-src/
+
 django_info.log
 celery_info.log
