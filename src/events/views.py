@@ -2,6 +2,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics, permissions, viewsets
 from rest_framework.response import Response
 
+from events.tasks import process_registration
+
 from .models import Event, Registration
 from .pagination import EventCursorPagination
 from .serializers import EventSerializer, RegistrationSerializer
@@ -46,9 +48,6 @@ class EventRegistrationView(generics.CreateAPIView):
         )
         if not created:
             return Response({"message": "Already registered"}, status=400)
-
-        # Асинхронная обработка подтверждения
-        from events.tasks import process_registration
 
         process_registration.delay(registration.id)
 

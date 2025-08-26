@@ -52,7 +52,7 @@ class Event(models.Model):
         verbose_name_plural = "Мероприятия"
 
     def __str__(self):
-        return f"{self.name} ({self.get_status_display()})"
+        return f"{self.name}"
 
 
 class Registration(models.Model):
