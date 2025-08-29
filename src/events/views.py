@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics, permissions, viewsets
 from rest_framework.response import Response
 
-from events.tasks import process_registration
+# from events.tasks import process_registration
 
 from .models import Event, Registration
 from .pagination import EventCursorPagination
