@@ -30,25 +30,39 @@ class RegisterView(generics.CreateAPIView):
         )
 
 
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import LoginSerializer
+
+
 class LoginView(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny,)
+    serializer_class = LoginSerializer
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        user = authenticate(username=username, password=password)
-        if user:
-            refresh = RefreshToken.for_user(user)
+        serializer = self.get_serializer(data=request.data)
+
+        if not serializer.is_valid():
             return Response(
-                {
-                    "access_token": str(refresh.access_token),
-                    "refresh_token": str(refresh),
-                }
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
             )
-        return Response(
-            {"error": "Invalid username or password"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
+
+        user = serializer.validated_data['user']
+        refresh = RefreshToken.for_user(user)
+
+        return Response({
+            "access_token": str(refresh.access_token),
+            "refresh_token": str(refresh),
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "first_name": user.first_name,
+                "last_name": user.last_name
+            }
+        })
 
 
 # Обновление Access Token
